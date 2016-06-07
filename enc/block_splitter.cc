@@ -22,16 +22,16 @@
 
 namespace brotli {
 
-static const size_t kMaxLiteralHistograms = 100;
-static const size_t kMaxCommandHistograms = 50;
-static const double kLiteralBlockSwitchCost = 28.1;
-static const double kCommandBlockSwitchCost = 13.5;
-static const double kDistanceBlockSwitchCost = 14.6;
+static const size_t kMaxLiteralHistograms = 10;
+static const size_t kMaxCommandHistograms = 10;
+static const double kLiteralBlockSwitchCost = 28.1 * 5.0;
+static const double kCommandBlockSwitchCost = 13.5 * 5.0;
+static const double kDistanceBlockSwitchCost = 14.6 * 5.0;
 static const size_t kLiteralStrideLength = 70;
 static const size_t kCommandStrideLength = 40;
-static const size_t kSymbolsPerLiteralHistogram = 544;
-static const size_t kSymbolsPerCommandHistogram = 530;
-static const size_t kSymbolsPerDistanceHistogram = 544;
+static const size_t kSymbolsPerLiteralHistogram = 10;
+static const size_t kSymbolsPerCommandHistogram = 10;
+static const size_t kSymbolsPerDistanceHistogram = 10;
 static const size_t kMinLengthForBlockSplitting = 128;
 static const size_t kIterMulForRefining = 2;
 static const size_t kMinItersForRefining = 100;
@@ -427,7 +427,7 @@ void SplitByteVector(const std::vector<DataType>& data,
   double *cost = new double[num_histograms];
   uint8_t* switch_signal = new uint8_t[data.size() * bitmaplen];
   uint16_t* new_id = new uint16_t[num_histograms];
-  for (size_t i = 0; i < 10; ++i) {
+  for (size_t i = 0; i < 3; ++i) {
     num_blocks = FindBlocks(&data[0], data.size(),
                             block_switch_cost,
                             num_histograms, histograms,
